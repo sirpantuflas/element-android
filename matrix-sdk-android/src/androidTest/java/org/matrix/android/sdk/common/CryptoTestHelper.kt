@@ -29,7 +29,7 @@ import org.matrix.android.sdk.api.auth.UserInteractiveAuthInterceptor
 import org.matrix.android.sdk.api.auth.UserPasswordAuth
 import org.matrix.android.sdk.api.auth.registration.RegistrationFlowResponse
 import org.matrix.android.sdk.api.crypto.MXCRYPTO_ALGORITHM_MEGOLM
-import org.matrix.android.sdk.api.crypto.MXCRYPTO_ALGORITHM_MEGOLM_BACKUP
+import org.matrix.android.sdk.api.crypto.MXCRYPTO_ALGORITHM_CURVE_25519_BACKUP
 import org.matrix.android.sdk.api.extensions.orFalse
 import org.matrix.android.sdk.api.session.Session
 import org.matrix.android.sdk.api.session.crypto.MXCryptoError
@@ -286,7 +286,7 @@ class CryptoTestHelper(val testHelper: CommonTestHelper) {
 
     fun createFakeMegolmBackupCreationInfo(): MegolmBackupCreationInfo {
         return MegolmBackupCreationInfo(
-                algorithm = MXCRYPTO_ALGORITHM_MEGOLM_BACKUP,
+                algorithm = MXCRYPTO_ALGORITHM_CURVE_25519_BACKUP,
                 authData = createFakeMegolmBackupAuthData(),
                 recoveryKey = "fake"
         )
