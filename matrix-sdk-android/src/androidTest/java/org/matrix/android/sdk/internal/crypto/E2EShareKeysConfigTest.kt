@@ -233,7 +233,7 @@ class E2EShareKeysConfigTest : InstrumentedTest {
         val keysBackupService = aliceSession.cryptoService().keysBackupService()
         val keyBackupPassword = "FooBarBaz"
         val megolmBackupCreationInfo = commonTestHelper.doSync<MegolmBackupCreationInfo> {
-            keysBackupService.prepareKeysBackupVersion(keyBackupPassword, null, it)
+            keysBackupService.prepareKeysBackupVersion(keyBackupPassword, null, null, it)
         }
         val version = commonTestHelper.doSync<KeysVersion> {
             keysBackupService.createKeysBackupVersion(megolmBackupCreationInfo, it)

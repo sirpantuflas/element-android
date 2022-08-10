@@ -28,8 +28,8 @@ import org.matrix.android.sdk.api.auth.UIABaseAuth
 import org.matrix.android.sdk.api.auth.UserInteractiveAuthInterceptor
 import org.matrix.android.sdk.api.auth.UserPasswordAuth
 import org.matrix.android.sdk.api.auth.registration.RegistrationFlowResponse
-import org.matrix.android.sdk.api.crypto.MXCRYPTO_ALGORITHM_MEGOLM
 import org.matrix.android.sdk.api.crypto.MXCRYPTO_ALGORITHM_CURVE_25519_BACKUP
+import org.matrix.android.sdk.api.crypto.MXCRYPTO_ALGORITHM_MEGOLM
 import org.matrix.android.sdk.api.extensions.orFalse
 import org.matrix.android.sdk.api.session.Session
 import org.matrix.android.sdk.api.session.crypto.MXCryptoError
@@ -38,8 +38,8 @@ import org.matrix.android.sdk.api.session.crypto.crosssigning.MASTER_KEY_SSSS_NA
 import org.matrix.android.sdk.api.session.crypto.crosssigning.SELF_SIGNING_KEY_SSSS_NAME
 import org.matrix.android.sdk.api.session.crypto.crosssigning.USER_SIGNING_KEY_SSSS_NAME
 import org.matrix.android.sdk.api.session.crypto.keysbackup.KeysVersion
-import org.matrix.android.sdk.api.session.crypto.keysbackup.MegolmBackupAuthData
 import org.matrix.android.sdk.api.session.crypto.keysbackup.MegolmBackupCreationInfo
+import org.matrix.android.sdk.api.session.crypto.keysbackup.MegolmBackupCurve25519AuthData
 import org.matrix.android.sdk.api.session.crypto.keysbackup.extractCurveKeyFromRecoveryKey
 import org.matrix.android.sdk.api.session.crypto.model.OlmDecryptionResult
 import org.matrix.android.sdk.api.session.crypto.verification.IncomingSasVerificationTransaction
@@ -277,8 +277,8 @@ class CryptoTestHelper(val testHelper: CommonTestHelper) {
         assertEquals(senderSession.myUserId, event.senderId)
     }
 
-    fun createFakeMegolmBackupAuthData(): MegolmBackupAuthData {
-        return MegolmBackupAuthData(
+    fun createFakeMegolmBackupAuthData(): MegolmBackupCurve25519AuthData {
+        return MegolmBackupCurve25519AuthData(
                 publicKey = "abcdefg",
                 signatures = mapOf("something" to mapOf("ed25519:something" to "hijklmnop"))
         )
@@ -382,7 +382,7 @@ class CryptoTestHelper(val testHelper: CommonTestHelper) {
 
             // set up megolm backup
             val creationInfo = awaitCallback<MegolmBackupCreationInfo> {
-                session.cryptoService().keysBackupService().prepareKeysBackupVersion(null, null, it)
+                session.cryptoService().keysBackupService().prepareKeysBackupVersion(null, null, null,  it)
             }
             val version = awaitCallback<KeysVersion> {
                 session.cryptoService().keysBackupService().createKeysBackupVersion(creationInfo, it)

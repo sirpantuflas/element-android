@@ -104,7 +104,7 @@ internal class KeysBackupTestHelper(
         val stateObserver = StateObserver(keysBackup)
 
         val megolmBackupCreationInfo = testHelper.doSync<MegolmBackupCreationInfo> {
-            keysBackup.prepareKeysBackupVersion(password, null, it)
+            keysBackup.prepareKeysBackupVersion(password, null, null, it)
         }
 
         Assert.assertNotNull(megolmBackupCreationInfo)
