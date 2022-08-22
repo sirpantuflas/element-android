@@ -321,7 +321,9 @@ class KeysBackupTest : InstrumentedTest {
                     put(cryptoTestData.roomId, roomKeysBackupData)
                 }
         )
-        algorithm.setRecoveryKey(keyBackupCreationInfo.recoveryKey)
+        extractCurveKeyFromRecoveryKey(keyBackupCreationInfo.recoveryKey)?.also {
+            algorithm.setPrivateKey(it)
+        }
         val sessionsData = algorithm.decryptSessions(keysBackupData)
         val sessionData = sessionsData.firstOrNull()
         assertNotNull(sessionData)
