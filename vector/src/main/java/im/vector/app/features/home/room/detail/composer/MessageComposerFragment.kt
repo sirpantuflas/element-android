@@ -287,7 +287,6 @@ class MessageComposerFragment : VectorBaseFragment<FragmentComposerBinding>(), A
             // Show keyboard when the user started a thread
             composerEditText.showKeyboard(andRequestFocus = true)
         }
-        // TODO: migrate this too
         composer.callback = object : MessageComposerView.Callback {
             override fun onAddAttachment() {
                 if (!::attachmentTypeSelector.isInitialized) {
@@ -358,7 +357,7 @@ class MessageComposerFragment : VectorBaseFragment<FragmentComposerBinding>(), A
         return isHandled
     }
 
-    private fun renderRegularMode(content: String) {
+    private fun renderRegularMode(content: CharSequence) {
         autoCompleter.exitSpecialMode()
         composer.collapse()
         composer.setTextIfDifferent(content)
@@ -369,7 +368,7 @@ class MessageComposerFragment : VectorBaseFragment<FragmentComposerBinding>(), A
             event: TimelineEvent,
             @DrawableRes iconRes: Int,
             @StringRes descriptionRes: Int,
-            defaultContent: String
+            defaultContent: CharSequence,
     ) {
         autoCompleter.enterSpecialMode()
         // switch to expanded bar
@@ -405,7 +404,7 @@ class MessageComposerFragment : VectorBaseFragment<FragmentComposerBinding>(), A
 
         composer.composerRelatedMessageImage.isVisible = isImageVisible
 
-        composer.setTextIfDifferent(defaultContent)
+        composer.replaceFormattedContent(defaultContent)
 
         composer.composerRelatedMessageActionIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), iconRes))
         composer.sendButton.contentDescription = getString(descriptionRes)
