@@ -136,7 +136,6 @@ ext.libs = [
                 'pluginAnnotation'       : "org.maplibre.gl:android-plugin-annotation-v9:1.0.0"
         ],
         mockk      : [
-                'mockk'                   : "io.mockk:mockk:$mockk",
                 'mockkAndroid'            : "io.mockk:mockk-android:$mockk"
         ],
         github     : [
